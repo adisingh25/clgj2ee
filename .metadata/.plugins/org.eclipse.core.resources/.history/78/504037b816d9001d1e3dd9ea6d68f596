@@ -1,0 +1,105 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.sql.*;
+
+public class Main extends JFrame implements ActionListener {
+
+	JFrame jf = new JFrame("JDBC");
+	JPanel jp = new JPanel();
+	JLabel repno = new JLabel("Enter a repno : ");
+	JTextField repNumber = new JTextField(20);
+	JLabel repn = new JLabel("Enter a rep name : ");
+	JTextField repName = new JTextField(20);
+	JLabel reps = new JLabel("Enter a rep state : ");
+	JTextField repState = new JTextField(20);
+	JLabel repc = new JLabel("Enter a rep commision: ");
+	JTextField repCommision = new JTextField(20);
+	JLabel repr = new JLabel("Enter a repno : ");
+	JTextField repRate = new JTextField(20);
+	
+	
+	JLabel cno = new JLabel("Enter a cutomer no : ");
+	JTextField cNumber = new JTextField(20);
+	JLabel cn = new JLabel("Enter a customer name : ");
+	JTextField cName = new JTextField(20);
+	JLabel cs = new JLabel("Enter a cutomer state : ");
+	JTextField cState = new JTextField(20);
+	JLabel ccl = new JLabel("Enter a cutomer credit limit : ");
+	JTextField cCreditlimit = new JTextField(20);
+	JLabel crepNo = new JLabel("Enter a repno of customer  : ");
+	JTextField crepNumber = new JTextField(20);
+
+	JButton jb1 = new JButton("Submit");
+	public Main() {
+		jf.setSize(500,500);
+		jf.add(jp);
+		jp.add(repno);
+		jp.add(repNumber);
+		jp.add(repn);
+		jp.add(repName);
+		jp.add(reps);
+		jp.add(repState);
+		jp.add(repc);
+		jp.add(repCommision);
+		jp.add(repr);
+		jp.add(repRate);
+		
+		jp.add(cno);
+		jp.add(cNumber);
+		jp.add(cn);
+		jp.add(cName);
+		jp.add(cs);
+		jp.add(cState);
+		jp.add(ccl);
+		jp.add(cCreditlimit);
+		jp.add(crepNo);
+		jp.add(crepNumber);
+		
+		
+		jp.add(jb1);
+		jb1.addActionListener(this);
+		jf.setVisible(true);
+	}
+	public static void main(String [] args) throws Exception {
+		Main s1 = new Main();
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jb1) {
+			String repnumber = repNumber.getText();
+			String repname = repName.getText();
+			String repstate = repState.getText();
+			String repcommision = repCommision.getText();
+			String reprate = repRate.getText();
+			
+			String customernumber = cNumber.getText();
+			String customername = cName.getText();
+			String customerstate = cState.getText();
+			String customercreditlimit = cCreditlimit.getText();
+			String customerreponumber = crepNumber.getText();
+			
+			System.out.println(repnumber);
+			System.out.println(repname);
+			System.out.println(repstate);
+			System.out.println(repcommision);
+			System.out.println(reprate);
+			System.out.println(customernumber);
+			System.out.println(customername);
+			System.out.println(customerstate);
+			System.out.println(customercreditlimit);
+			System.out.println(customerreponumber);
+			
+			
+			
+		}
+	}
+
+}
