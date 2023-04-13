@@ -13,8 +13,8 @@
 	<option>male</option>
 	<option>Both</option>
 	</select>
-	Sal : <input type="text" name="salary" />
-	Tax : <input type="text" name="tax" />
+	Salary : <input type="text" name="salary" />
+	Tax Percentage : <input type="text" name="tax" />
 	<input type="submit"/>
 	</form>
 
