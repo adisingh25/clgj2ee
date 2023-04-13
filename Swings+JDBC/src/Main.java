@@ -83,7 +83,20 @@ public class Main extends JFrame implements ActionListener {
 				
 				
 //				String anotherQuery = "insert into customer (custno, custname, state, creditLimit,repNo) values ("+  customernumber + ", '" + customername + "','" + customerstate + "'," + customercreditlimit + "," +customerreponumber +")" ;
-//				int rs = s.executeUpdate(queryToExecute);
+				int rs = s.executeUpdate(queryToExecute);
+				
+				String custAbove15k = String.format("select * from customer where creditLimit > 15000");
+				 
+				 ResultSet rs1 = s.executeQuery(custAbove15k);
+				 
+				 while(rs1.next()){
+			            //Display values
+			            System.out.print("ID: " + rs1.getInt("custno"));
+			            System.out.print(", Name: " + rs1.getString("custname"));
+			            System.out.print(", Last: " + rs1.getString("state"));
+			            System.out.print(", CreditLimit: " + rs1.getInt("creditLimit"));
+			            System.out.println(", Rep No: " + rs1.getInt("repNo"));
+			         }
 				
 				s.close();
 				c.close();
