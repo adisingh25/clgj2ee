@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import java.sql.*;
+
 /**
  * Servlet implementation class BookHall
  */
@@ -51,6 +54,42 @@ public class BookHall extends HttpServlet {
 	        out.print("<html><body><p>" + "---------------Here is Your Booking Details-------------<br><br>Booking Id : " + id + "<br></p><p>Hall Selected : " + hall + "</p>");
 	        out.print("<p>Cause for Booking : " + event + "</p><p>Booked By : " + name + "</p><p>Booked From : "+ from + "</p><p>Booked Till"+ to
 	              + "</p><p>Theme Selected : "+ theme +"</p><br>Your total booking amount is " + billAmount + "</body></html>");
+	        
+	        try{
+	        	Statement s = (Statement)DatabaseInstance.getInstance().createStatement();
+	        	
+	        	String insertIntoTable = String.format("insert into HallBookingDetails (customerId, hall, event, name, fromDate, toDate, theme, billAmount)"
+	        			+ " values (%d, '%s','%s','%s','%s','%s','%s', %f)", 
+	        			id, hall, event, name, from, to, theme, billAmount);
+	        	
+	        	int rs = s.executeUpdate(insertIntoTable);
+	        
+	        	System.out.println("booking sucessfull");
+	        	
+	        	
+	        	String getAllBookings = String.format("select * from HallBookingDetails");
+				 
+				 ResultSet fetchQueryResult = s.executeQuery(getAllBookings);
+				 
+				 System.out.println("Booking so far are:  ");
+				 
+				 while(fetchQueryResult.next()){
+			            //Display values
+			            System.out.print("ID: " + fetchQueryResult.getInt("customerId"));
+			            System.out.print(", Hall Name: " + fetchQueryResult.getString("hall"));
+			            System.out.print(", Event name: " + fetchQueryResult.getString("event"));
+			            System.out.print(", Customer Name: " + fetchQueryResult.getString("name"));
+			            System.out.print(", Booked from: " + fetchQueryResult.getString("fromDate"));
+			            System.out.print(", Booked to: " + fetchQueryResult.getString("toDate"));
+			            System.out.print(", Theme: " + fetchQueryResult.getString("theme"));
+			            System.out.println(", Bill Amount: " + fetchQueryResult.getDouble("billAmount"));
+			         }
+	        	
+	        	
+	        }catch(Exception e){
+	        	System.out.println("Error while inserting into database " + e.toString());
+	        }
+	        
 	        
 
 	}

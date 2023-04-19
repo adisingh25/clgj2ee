@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.sql.*;
 /**
  * Servlet implementation class youtube
  */
@@ -53,6 +53,41 @@ public class youtube extends HttpServlet {
 	        out.print("<p>Title of the Video : " + title + "</p><p>Creator Name : " + name + "</p><p>Length of the Video : "+ length +
 	        		"</p><p>Background Song : "+ song
 	              + "</p><p>Age Limit  : "+ ageLimit +"</p><br>Description : " + description + "<br></body></html>");
+	        
+	        try{
+	        	String insertIntoTable = String.format("insert into Youtube (channelId, playlist, title, name, length, song, ageLimit, description)"
+	        			+ " values (%d, '%s','%s','%s','%d','%s','%s', '%s')", 
+	        			id, playList,title, name, length, song, ageLimit, description);
+	        	Statement s = (Statement)DatabaseInstance.getInstance().createStatement();
+	        	
+	        	int rs = s.executeUpdate(insertIntoTable);
+		        
+	        	System.out.println("uploaded sucessfully");
+	        	
+	        	
+	        	String getAllVideos = String.format("select * from Youtube");
+				 
+				 ResultSet fetchQueryResult = s.executeQuery(getAllVideos);
+				 
+				 System.out.println("Videos so far are:  ");
+				 
+				 while(fetchQueryResult.next()){
+			            //Display values
+			            System.out.print("ID: " + fetchQueryResult.getInt("channelId"));
+			            System.out.print(", Playlist:  " + fetchQueryResult.getString("playlist"));
+			            System.out.print(", Title: " + fetchQueryResult.getString("title"));
+			            System.out.print(", Name: " + fetchQueryResult.getString("name"));
+			            System.out.print(", Length: " + fetchQueryResult.getInt("length"));
+			            System.out.print(", Song: " + fetchQueryResult.getString("song"));
+			            System.out.print(", Age Limit: " + fetchQueryResult.getString("ageLimit"));
+			            System.out.println(", Description: " + fetchQueryResult.getString("description"));
+			         }
+	        	
+	        }catch(Exception e){
+	        	System.out.println("Error inserting " + e.getLocalizedMessage());
+	        	
+	        }
+	        
 	        
 	        
 		
